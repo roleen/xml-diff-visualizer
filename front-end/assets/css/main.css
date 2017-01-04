@@ -5,15 +5,16 @@
 	margin: 1vw;
 }
 
-#oec_sys, #nasa_sys, #oec_eu_sys, #exoeu_sys
+#from, #to
 {
-	width: 35vw;
+	width: 45vw;
+	min-width: 600px;
 	height: auto;
 	float: left;
 	margin: 1.5vw;
 }
 
-#oec_sys
+#from
 {
 	border-style: solid;
 	border-left: 5px;
