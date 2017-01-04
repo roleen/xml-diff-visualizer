@@ -1,26 +1,14 @@
-#compare {
-	width: 96vw;
-	height: 50vw;
-	float: left;
-	margin: 1vw;
-}
-
-#from, #to
-{
-	width: 45vw;
+#xml1, #xml2, #from, #to {
+	width: 50%;
 	min-width: 600px;
 	height: auto;
 	float: left;
-	margin: 1.5vw;
 }
 
-#from
-{
-	border-style: solid;
-	border-left: 5px;
-	border-top: 5px;
-	border-bottom: 5px;
-
+#text1, #text2 {
+	width: 90%;
+	height: 60vh;
+	margin: 2vw;
 }
 
 #scroll {

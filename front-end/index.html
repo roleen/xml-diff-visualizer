@@ -22,7 +22,6 @@
     <script src="assets/js/jquery.scrollex.min.js"></script>
     <script src="assets/js/jquery.scrolly.min.js"></script>
     <script src="assets/js/skel.min.js"></script>
-    <script src="assets/js/main.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 	<!-- Custom Scripts -->
@@ -33,6 +32,16 @@
 	<div id="wrapper">
 
 		<div class="inner">
+			<div id='inputs' name='inputs'>
+				<div id='xml1'>
+					<textarea id="text1" placeholder="Enter first XML"></textarea>
+				</div>
+				<div id='xml2'>
+					<textarea id="text2" placeholder="Enter second XML"></textarea>
+				</div>
+
+				<center><button id='generateDiff' type="button">Generate Diff</button></center>
+			</div>
 			<div id='compare' name='from_tree'>
 				<div id="from">
 					<h3>From</h3>
@@ -44,10 +53,13 @@
 					<div id='to_tree'>
 					</div>
 				</div>
+				
+				<center><button id='generateAnotherDiff' type="button">Generate Another Diff</button></center>
 			</div>
 		</div>
 	</div>
 </body>
 
 <script src='assets/js/data.js'></script>
+<script src="assets/js/main.js"></script>
 </html>
