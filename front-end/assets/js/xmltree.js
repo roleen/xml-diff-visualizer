@@ -228,7 +228,7 @@ THE SOFTWARE.
 				if (attrs) {
 					for(i=0; i<attrs.length; i++) {
 
-						var prependString = '@{0}: <input type="text" isatt="1" name="{0}" value="{1}">'.format(attrs[i].name, attrs[i].value);
+						var prependString = '@{0}: <input type="text" isatt="1" name="{0}" value="{1}">'.format(attrs[i].name, attrs[i].value.trim());
 						ul.append(attrLI = $('<li>').append($('<span>', {text: ''}).addClass('attrValue')).addClass('attr '+attrs[i].name).prepend(prependString));
 							if (jdo.attrs && jdo.attrs == 'hidden') attrLI.hide();
 					}
@@ -246,7 +246,7 @@ THE SOFTWARE.
 
 			//if no children, simply append text (if any)
 			if (!kids.length)
-				LITxtHolder.prepend('<input type="text" isatt="0" name="{0}" value="{1}" />'.format(node[0].tagName, node.immediateText())).prepend(tagName);
+				LITxtHolder.prepend('<input type="text" isatt="0" name="{0}" value="{1}" />'.format(node[0].tagName, node.immediateText().trim())).prepend(tagName);
 
 			//if children, set stored procedures that will run and create them only when branch expanded - unless starting expanded
 			//or if tree involves sub-trees

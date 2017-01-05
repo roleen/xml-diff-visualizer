@@ -4,17 +4,6 @@ var TO_DIV = "to_tree";
 var rootTag;
 var tagsDict;
 
-function createXMLTree(xml, div, cat) {
-    var tree = new XMLTree({
-      xml: xml,
-      container: div,
-      startExpanded: true,
-      noURLTracking: true,
-      attrsAsData: true,
-      name: cat
-    });
-}
-
 function populate(fromXML, toXML) {
     if (fromXML == "") fromXML = "<{0}></{0}>".format(rootTag);
     if (toXML == "") toXML = "<{0}></{0}>".format(rootTag);
@@ -65,6 +54,157 @@ function updateTagsDict(node) {
         if (child.nodeType == Node.ELEMENT_NODE) {
             updateTagsDict(child);
         }
+    });
+}
+
+function normalizeXML(xml1, xml2) {
+    var xmlDoc1 = $.parseXML(xml1);
+    var xmlDoc2 = $.parseXML(xml2);
+
+    xmlDoc1 = xmlDoc1.childNodes[0];
+    xmlDoc2 = xmlDoc2.childNodes[0];
+
+    [root1, root2] = normalize(xmlDoc1, xmlDoc2);
+
+    var xml1Str = "<{0}>{1}</{0}>".format(rootTag, root1.innerHTML);
+    var xml2Str = "<{0}>{1}</{0}>".format(rootTag, root2.innerHTML);
+    return [xml1Str, xml2Str];
+}
+
+function normalize(doc1, doc2) {
+    var tagName = doc1.tagName;
+
+    var docChildren1 = doc1.childNodes,
+        docChildren2 = doc2.childNodes;
+
+    var nodes1 = [];
+    var nodes2 = [];
+
+    docChildren1.forEach(function (doc) {
+        if (doc.nodeType == Node.ELEMENT_NODE) {
+            nodes1.push(doc);
+        }
+    });
+
+    docChildren2.forEach(function (doc) {
+        if (doc.nodeType == Node.ELEMENT_NODE) {
+            nodes2.push(doc);
+        }
+    });
+
+    var tags = tagsDict[doc1.tagName];
+
+    var xml1 = "",
+        xml2 = "";
+
+    var childTags1 = [],
+        childTags2 = [];
+
+    nodes1.forEach(function (child) {
+        if (child.tagName !== undefined)
+            childTags1.push(child.tagName);
+    });
+
+    nodes2.forEach(function (child) {
+        if (child.tagName !== undefined)
+            childTags2.push(child.tagName);
+    });
+
+    var emptyNode, attrs, firstIndex, finalCount;
+
+    tags.forEach(function (tag) {
+        var index1 = $.inArray(tag, childTags1);
+        var index2 = $.inArray(tag, childTags2);
+        var count1 = count(childTags1, tag);
+        var count2 = count(childTags2, tag);
+
+        // This is not a bug
+        if (index1 == -1) index1 = index2;
+        if (index2 == -1) index2 = index1;
+
+        if ((count1 > count2) && index2 != -1) index2 = index2 + count2;
+        if ((count2 > count1) && index1 != -1) index1 = index1 + count1;
+
+        while (count1 > count2) {
+            emptyNode = $.parseXML("<{0}></{0}>".format(tag)).childNodes[0];
+            nodes2.splice(index2, 0, emptyNode);
+            childTags2.splice(index2, 0, tag);
+            index2++;
+            count2++;
+        }
+        while (count1 < count2) {
+            emptyNode = $.parseXML("<{0}></{0}>".format(tag)).childNodes[0];
+            nodes1.splice(index1, 0, emptyNode);
+            childTags1.splice(index1, 0, tag);
+            index1++;
+            count1++;
+        }
+
+        firstIndex = $.inArray(tag, childTags1);
+        finalCount = count1;
+        nodes1, nodes2 = rearrange(nodes1, nodes2, firstIndex, finalCount);
+    });
+
+    for (var i = 0; i < nodes1.length; i++) {
+        if (tagsDict[nodes1[i].tagName].length > 0) {
+            [node1, node2] = normalize(nodes1[i], nodes2[i]);
+            nodes1.splice(i, 1, node1);
+            nodes2.splice(i, 1, node2);
+        }
+    }
+
+    doc1 = $.parseXML("<{0}></{0}>".format(tagName)).childNodes[0];
+    nodes1.forEach(function (node) {
+        doc1.appendChild(node);
+    });
+
+    doc2 = $.parseXML("<{0}></{0}>".format(tagName)).childNodes[0];
+    nodes2.forEach(function (node) {
+        doc2.appendChild(node);
+    });
+
+    return [doc1, doc2];
+}
+
+function rearrange(nodes1, nodes2, firstIndex, count) {
+    var tmp;
+    for (var i = firstIndex; i < firstIndex + count; i++) {
+        for (var j = firstIndex; j < firstIndex + count; j++) {
+            if (nodes1[i].textContent.trim() == nodes2[j].textContent.trim()) {
+                if (i != j) {
+                    tmp = nodes2[j];
+                    nodes2[j] = nodes2[i];
+                    nodes2[i] = tmp;
+                }
+            }
+        }
+    }
+    var attrs;
+    for (var i = firstIndex; i < firstIndex + count; i++) {
+        attrs = nodes1[i].attributes;
+        for (j = 0; j < attrs.length; j++) {
+            if (nodes2[i].getAttribute(attrs[j].name) == null) {
+                nodes2[i].setAttribute(attrs[j].name, "");
+            }
+        }
+        attrs = nodes2[i].attributes;
+        for (j = 0; j < attrs.length; j++) {
+            if (nodes1[i].getAttribute(attrs[j].name) == null) {
+                nodes1[i].setAttribute(attrs[j].name, "");
+            }
+        }
+    }
+    return nodes1, nodes2;
+}
+
+function createXMLTree(xml, div, cat) {
+    var tree = new XMLTree({
+      xml: xml,
+      container: div,
+      startExpanded: true,
+      noURLTracking: true,
+      attrsAsData: true,
+      name: cat
     });
 }
 
