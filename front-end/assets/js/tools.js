@@ -85,10 +85,10 @@ function normalizeXML(xml1, xml2) {
     xmlDoc1 = xmlDoc1.childNodes[0];
     xmlDoc2 = xmlDoc2.childNodes[0];
 
-    [system1, system2] = normalize(xmlDoc1, xmlDoc2);
+    [root1, root2] = normalize(xmlDoc1, xmlDoc2);
 
-    var xml1Str = "<system>{0}</system>".format(system1.innerHTML);
-    var xml2Str = "<system>{0}</system>".format(system2.innerHTML);
+    var xml1Str = "<{0}>{1}</{0}>".format(rootTag, root1.innerHTML);
+    var xml2Str = "<{0}>{1}</{0}>".format(rootTag, root2.innerHTML);
     return [xml1Str, xml2Str];
 }
 

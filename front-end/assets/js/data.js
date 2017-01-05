@@ -1,35 +1,8 @@
-var PAR_TAG = "system";
 var FROM_DIV = "from_tree";
 var TO_DIV = "to_tree";
-var PARENT_CLASSES = ["system", "star", "planet", "binary"];
 
+var rootTag;
 var tagsDict;
-// var tagsDict = {
-//     planet: ['name', 'list', 'semimajoraxis', 'eccentricity',
-//             'periastron', 'longitude', 'ascendingnode', 'inclination',
-//             'impactparameter', 'meananomaly', 'period', 'transittime',
-//             'periastrontime', 'maximumrvtime', 'separation', 'mass',
-//             'radius', 'temperature', 'age', 'discoverymethod',
-//             'istransiting', 'new', 'description', 'discoveryyear',
-//             'lastupdate', 'image', 'imagedescription',
-//             'spinorbitalignment', 'positionangle', 'metallicity',
-//             'spectraltype', 'magB', 'magH', 'magI', 'magJ', 'magK',
-//             'magR', 'magU', 'magV'],
-//     star: ['name', 'planet', 'mass', 'radius', 'temperature',
-//             'age', 'metallicity', 'spectraltype', 'magB', 'magH', 'magI', 'magJ',
-//             'magK', 'magR', 'magU', 'magV'],
-//
-//     binary: ['name', 'binary', 'star', 'planet', 'semimajoraxis',
-//             'eccentricity', 'periastron', 'longitude', 'meananomaly',
-//             'ascendingnode', 'inclination', 'period', 'transittime',
-//             'periastrontime', 'maximumrvtime', 'separation',
-//             'positionangle', 'magB', 'magH', 'magI', 'magJ', 'magK',
-//             'magR', 'magU', 'magV'],
-//     system: ['name', 'binary', 'planet', 'star', 'spectraltype',
-//             'rightascension', 'declination', 'distance', 'epoch',
-//             'videolink', 'magB', 'magH', 'magI', 'magJ', 'magK',
-//             'magR', 'magU', 'magV']
-// };
 
 function createXMLTree(xml, div, cat) {
     var tree = new XMLTree({
@@ -43,8 +16,8 @@ function createXMLTree(xml, div, cat) {
 }
 
 function populate(fromXML, toXML) {
-    if (fromXML == "") fromXML = "<{0}></{0}>".format(PAR_TAG);
-    if (toXML == "") toXML = "<{0}></{0}>".format(PAR_TAG);
+    if (fromXML == "") fromXML = "<{0}></{0}>".format(rootTag);
+    if (toXML == "") toXML = "<{0}></{0}>".format(rootTag);
 
     generateTagsDict(fromXML, toXML);
 
@@ -66,10 +39,16 @@ function generateTagsDict(fromXML, toXML) {
     xmlDoc1 = xmlDoc1.childNodes[0];
     xmlDoc2 = xmlDoc2.childNodes[0];
 
-    tagsDict = {};
+    if (xmlDoc1.tagName != xmlDoc2.tagName) {
+        // throw error
+        alert('Root tags do not match. The two XMLs cannot be compared');
+    } else {
+        rootTag = xmlDoc1.tagName;
+        tagsDict = {};
 
-    updateTagsDict(xmlDoc1);
-    updateTagsDict(xmlDoc2);
+        updateTagsDict(xmlDoc1);
+        updateTagsDict(xmlDoc2);
+    }
 }
 
 function updateTagsDict(node) {
@@ -78,57 +57,52 @@ function updateTagsDict(node) {
     }
     var children = node.childNodes;
     children.forEach(function (child) {
-        if (child.nodeType == child.ELEMENT_NODE && count(tagsDict[node.tagName], child.tagName) == 0) {
+        if (child.nodeType == Node.ELEMENT_NODE && count(tagsDict[node.tagName], child.tagName) == 0) {
             tagsDict[node.tagName].push(child.tagName);
         }
     });
     children.forEach(function (child) {
-        if (child.nodeType == child.ELEMENT_NODE) {
+        if (child.nodeType == Node.ELEMENT_NODE) {
             updateTagsDict(child);
         }
     });
 }
 
 function visualizeDiff() {
-    var from_tree = $("#{0} input".format(FROM_DIV));
-    var to_tree =$("#{0} input".format(TO_DIV));
-    if (from_tree.length == to_tree.length) {
-        var from_vals = [];
-        var to_vals = [];
+    var fromTree = $("#{0} input".format(FROM_DIV));
+    var toTree =$("#{0} input".format(TO_DIV));
+    if (fromTree.length == toTree.length) {
+        var toVals = [];
         var ind = 0;
         var attrInd = 0;
 
-        $.each(to_tree, function(data, listNode) {
+        $.each(toTree, function(data, listNode) {
             node = $(listNode);
             nodeClass = node.attr("class");
-            if (PARENT_CLASSES.indexOf(nodeClass) == -1) {
-                to_vals.push(node);
-            }
+            toVals.push(node);
         });
 
-        $.each(from_tree, function(data, listNode) {
+        $.each(fromTree, function(data, listNode) {
             node = $(listNode);
             nodeClass = node.attr("class");
-            if (PARENT_CLASSES.indexOf(nodeClass) == -1) {
 
                 inputVal = node.val();
-                toVal = to_vals[ind].val();
+                toVal = toVals[ind].val();
 
                 if (inputVal && !toVal) {
                     $(node).attr("class", "insert");
-                    $(to_vals[ind]).attr("class", "delete");
+                    $(toVals[ind]).attr("class", "delete");
                 }
                 else if (toVal && !inputVal) {
                     $(node).attr("class", "delete");
-                    $(to_vals[ind]).attr("class", "insert");
+                    $(toVals[ind]).attr("class", "insert");
                 }
                 else if (inputVal != toVal) {
                     $(node).attr("class", "different");
-                    $(to_vals[ind]).attr("class", "different");
+                    $(toVals[ind]).attr("class", "different");
                 }
 
                 ind += 1;
-            }
         });
     }
 }
