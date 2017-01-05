@@ -30,32 +30,6 @@ if(typeof(String.prototype.trim) === "undefined") {
     }
 }
 
-var planetTags = ['name', 'list', 'semimajoraxis', 'eccentricity',
-                    'periastron', 'longitude', 'ascendingnode', 'inclination',
-                    'impactparameter', 'meananomaly', 'period', 'transittime',
-                    'periastrontime', 'maximumrvtime', 'separation', 'mass',
-                    'radius', 'temperature', 'age', 'discoverymethod',
-                    'istransiting', 'new', 'description', 'discoveryyear',
-                    'lastupdate', 'image', 'imagedescription',
-                    'spinorbitalignment', 'positionangle', 'metallicity',
-                    'spectraltype', 'magB', 'magH', 'magI', 'magJ', 'magK',
-                    'magR', 'magU', 'magV'];
-
-var starTags = ['name', 'planet', 'mass', 'radius', 'temperature',
-                'age', 'metallicity', 'spectraltype', 'magB', 'magH', 'magI', 'magJ',
-                'magK', 'magR', 'magU', 'magV'];
-
-var binaryTags = ['name', 'binary', 'star', 'planet', 'semimajoraxis',
-                    'eccentricity', 'periastron', 'longitude', 'meananomaly',
-                    'ascendingnode', 'inclination', 'period', 'transittime',
-                    'periastrontime', 'maximumrvtime', 'separation',
-                    'positionangle', 'magB', 'magH', 'magI', 'magJ', 'magK',
-                    'magR', 'magU', 'magV'];
-
-var systemTags = ['name', 'binary', 'planet', 'star', 'spectraltype',
-                    'rightascension', 'declination', 'distance', 'epoch',
-                    'videolink', 'magB', 'magH', 'magI', 'magJ', 'magK',
-                    'magR', 'magU', 'magV'];
 
 function convertToXML(li) {
     var tagName = li.className.replace("noKids", "").trim();
@@ -108,8 +82,8 @@ function normalizeXML(xml1, xml2) {
     var xmlDoc1 = $.parseXML(xml1);
     var xmlDoc2 = $.parseXML(xml2);
 
-    var xmlDoc1 = xmlDoc1.childNodes[0];
-    var xmlDoc2 = xmlDoc2.childNodes[0];
+    xmlDoc1 = xmlDoc1.childNodes[0];
+    xmlDoc2 = xmlDoc2.childNodes[0];
 
     [system1, system2] = normalize(xmlDoc1, xmlDoc2);
 
@@ -139,12 +113,7 @@ function normalize(doc1, doc2) {
         }
     });
 
-    var tags;
-
-    if (doc1.tagName == "system") tags = systemTags;
-    else if (doc1.tagName == "binary") tags = binaryTags;
-    else if (doc1.tagName == "star") tags = starTags;
-    else if (doc1.tagName == "planet") tags = planetTags;
+    var tags = tagsDict[doc1.tagName];
 
     var xml1 = "",
         xml2 = "";
@@ -257,12 +226,4 @@ function count(array, item) {
         if (element == item) count++;
     });
     return count;
-}
-
-function urlExists(url)
-{
-    var http = new XMLHttpRequest();
-    http.open('HEAD', url, false);
-    http.send();
-    return http.status!=404;
 }

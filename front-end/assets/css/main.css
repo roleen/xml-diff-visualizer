@@ -1,3 +1,8 @@
+#wrapper {
+	margin-top: 2vw;
+	margin-bottom: 2vw;
+}
+
 #xml1, #xml2, #from, #to {
 	width: 50%;
 	min-width: 600px;
