@@ -31,19 +31,26 @@
 	<!-- Wrapper -->
 	<div id="wrapper">
 
+		<div class="jumbotron">
+    	<h1>XML Diff Visualizer</h1>
+    	<p>XML Diff visualizer is a utility designed to show the difference between two XML files.
+			The resulting difference is showcased using a tree view provided by mitya.</p>
+  	</div>
+
 		<div class="inner">
 			<div id='inputs' name='inputs'>
+				<center><button id='generateDiff' type="button">Generate Diff</button></center>
 				<div id='xml1'>
-					<textarea id="text1" placeholder="Enter first XML"></textarea>
+					<textarea id="text1" placeholder="Enter Base XML"></textarea>
 				</div>
 				<div id='xml2'>
-					<textarea id="text2" placeholder="Enter second XML"></textarea>
+					<textarea id="text2" placeholder="Enter Changed XML"></textarea>
 				</div>
 				<br/>
-				<center><button id='generateDiff' type="button">Generate Diff</button></center>
-			</div>
+				</div>
 
 			<div id='compare' name='from_tree'>
+				<center><button id='generateAnotherDiff' type="button">Generate Another Diff</button></center>
 				<div id="from">
 					<div id='from_tree'>
 					</div>
@@ -53,8 +60,7 @@
 					</div>
 				</div>
 				<br/>
-				<center><button id='generateAnotherDiff' type="button">Generate Another Diff</button></center>
-			</div>
+				</div>
 		</div>
 	</div>
 </body>
