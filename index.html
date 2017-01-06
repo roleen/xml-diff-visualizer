@@ -31,15 +31,22 @@
 	<!-- Wrapper -->
 	<div id="wrapper">
 
-		<div class="jumbotron">
-    	<h1>XML Diff Visualizer</h1>
-    	<p>XML Diff visualizer is a utility designed to show the difference between two XML files.
-			The resulting difference is showcased using a tree view provided by mitya.</p>
-  	</div>
-
 		<div class="inner">
-			<div id='inputs' name='inputs'>
-				<center><button id='generateDiff' type="button">Generate Diff</button></center>
+			<div id='inputs'>
+
+				<div id="info-wrapper" class="jumbotron">
+					<div id="info">
+				    	<h1 class="text-center">XML Diff Visualizer</h1>
+				    	<p>
+							XML Diff visualizer is a utility designed to show the difference between two XML trees.
+							The resulting difference is showcased using a tree view provided by mitya.
+						</p>
+					</div>
+			  	</div>
+
+				<div class="button-wrapper">
+					<button id='generateDiff' class="btn btn-secondary" type="button">Generate Diff</button>
+				</div>
 				<div id='xml1'>
 					<textarea id="text1" placeholder="Enter Base XML"></textarea>
 				</div>
@@ -49,22 +56,22 @@
 				<br/>
 				</div>
 
-			<div id='compare' name='from_tree'>
-				<center><button id='generateAnotherDiff' type="button">Generate Another Diff</button></center>
+			<div id='compare'>
+				<div class="button-wrapper">
+					<button id='generateAnotherDiff' class="btn btn-secondary" type="button">Generate Another Diff</button>
+				</div>
 				<div id="from">
-					<div id='from_tree'>
-					</div>
+					<div id='from_tree'></div>
 				</div>
 				<div id="to">
-					<div id='to_tree'>
-					</div>
+					<div id='to_tree'></div>
 				</div>
 				<br/>
 				</div>
 		</div>
 	</div>
-</body>
 
-<script src='assets/js/data.js'></script>
-<script src="assets/js/main.js"></script>
+	<script src="assets/js/data.js"></script>
+	<script src="assets/js/main.js"></script>
+</body>
 </html>

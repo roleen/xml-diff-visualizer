@@ -1,18 +1,21 @@
-#generateDiff {
-	margin-bottom: 2vw
+
+
+#info {
+	margin: 20px;
 }
 
-#generateAnotherDiff {
-	margin-bottom: 2vw
+.button-wrapper {
+	width: 100%;
+	text-align: center;
 }
-#wrapper {
-	margin-top: 2vw;
-	margin-bottom: 2vw;
+
+#generateDiff, #generateAnotherDiff {
+	margin: 2vw;
+	display: inline-block;
 }
 
 #xml1, #xml2, #from, #to {
 	width: 50%;
-	min-width: 600px;
 	height: auto;
 	float: left;
 }
@@ -26,10 +29,6 @@
 #scroll {
 	height:25vw;
 	overflow-y: scroll;
-}
-
-#nasaCat, #exoeuCat {
-	margin: 1vw;
 }
 
 #search {
