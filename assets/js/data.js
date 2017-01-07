@@ -4,13 +4,10 @@ var TO_DIV = "to_tree";
 var rootTag;
 var tagsDict;
 
-function populate(fromXML, toXML) {
-    if (fromXML == "") fromXML = "<{0}></{0}>".format(rootTag);
-    if (toXML == "") toXML = "<{0}></{0}>".format(rootTag);
+function populate(xmlDoc1, xmlDoc2) {
+    generateTagsDict(xmlDoc1, xmlDoc2);
 
-    generateTagsDict(fromXML, toXML);
-
-    [fromXML, toXML] = normalizeXML(fromXML, toXML);
+    [fromXML, toXML] = normalizeXML(xmlDoc1, xmlDoc2);
 
     document.getElementById(FROM_DIV).innerHTML = "";
     document.getElementById(TO_DIV).innerHTML = "";
@@ -21,23 +18,12 @@ function populate(fromXML, toXML) {
     visualizeDiff();
 }
 
-function generateTagsDict(fromXML, toXML) {
-    var xmlDoc1 = $.parseXML(fromXML);
-    var xmlDoc2 = $.parseXML(toXML);
+function generateTagsDict(xmlDoc1, xmlDoc2) {
+    rootTag = xmlDoc1.tagName;
+    tagsDict = {};
 
-    xmlDoc1 = xmlDoc1.childNodes[0];
-    xmlDoc2 = xmlDoc2.childNodes[0];
-
-    if (xmlDoc1.tagName != xmlDoc2.tagName) {
-        // throw error
-        alert('Root tags do not match. The two XMLs cannot be compared');
-    } else {
-        rootTag = xmlDoc1.tagName;
-        tagsDict = {};
-
-        updateTagsDict(xmlDoc1);
-        updateTagsDict(xmlDoc2);
-    }
+    updateTagsDict(xmlDoc1);
+    updateTagsDict(xmlDoc2);
 }
 
 function updateTagsDict(node) {
@@ -57,15 +43,8 @@ function updateTagsDict(node) {
     });
 }
 
-function normalizeXML(xml1, xml2) {
-    var xmlDoc1 = $.parseXML(xml1);
-    var xmlDoc2 = $.parseXML(xml2);
-
-    xmlDoc1 = xmlDoc1.childNodes[0];
-    xmlDoc2 = xmlDoc2.childNodes[0];
-
+function normalizeXML(xmlDoc1, xmlDoc2) {
     [root1, root2] = normalize(xmlDoc1, xmlDoc2);
-
     var xml1Str = "<{0}>{1}</{0}>".format(rootTag, root1.innerHTML);
     var xml2Str = "<{0}>{1}</{0}>".format(rootTag, root2.innerHTML);
     return [xml1Str, xml2Str];
