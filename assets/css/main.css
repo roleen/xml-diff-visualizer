@@ -24,6 +24,7 @@
 	width: 90%;
 	height: 60vh;
 	margin: 2vw;
+	resize: none;
 }
 
 #scroll {

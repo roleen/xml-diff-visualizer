@@ -34,7 +34,7 @@ function generateDiff() {
             return;
         }
 
-        populate(xmlDoc1, xmlDoc2);
+        createDiffVisualization(xmlDoc1, xmlDoc2);
         $('#inputs').hide();
         $('#compare').show();
     }
