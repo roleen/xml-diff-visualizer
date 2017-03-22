@@ -9,9 +9,9 @@
 }
 
 #xml1, #xml2, #from, #to {
-	width: 50%;
+	width: 49%;
 	height: auto;
-	float: left;
+	display: inline-block;
 }
 
 #text1, #text2 {
