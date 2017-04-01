@@ -18,6 +18,7 @@ See the test implementation provided in "front-end/assets/js/data.js".
 4. Push to the branch: `git push origin my-new-feature`
 5. Submit a pull request :D
 
+
 ## Credits and License
 
 The MIT License (MIT)
