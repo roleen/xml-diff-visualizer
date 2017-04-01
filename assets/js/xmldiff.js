@@ -323,23 +323,23 @@ function visualizeDiff() {
             node = $(listNode);
             nodeClass = node.attr("class");
 
-                inputVal = node.val();
-                toVal = toVals[ind].val();
+            inputVal = node.val();
+            toVal = toVals[ind].val();
 
-                if (inputVal && !toVal) {
-                    $(node).attr("class", "insert");
-                    $(toVals[ind]).attr("class", "delete");
-                }
-                else if (toVal && !inputVal) {
-                    $(node).attr("class", "delete");
-                    $(toVals[ind]).attr("class", "insert");
-                }
-                else if (inputVal != toVal) {
-                    $(node).attr("class", "different");
-                    $(toVals[ind]).attr("class", "different");
-                }
+            if (inputVal && !toVal) {
+                $(node).attr("class", "insert");
+                $(toVals[ind]).attr("class", "delete");
+            }
+            else if (toVal && !inputVal) {
+                $(node).attr("class", "delete");
+                $(toVals[ind]).attr("class", "insert");
+            }
+            else if (inputVal != toVal) {
+                $(node).attr("class", "different");
+                $(toVals[ind]).attr("class", "different");
+            }
 
-                ind += 1;
+            ind += 1;
         });
     }
 }
