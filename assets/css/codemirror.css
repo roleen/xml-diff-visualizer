@@ -1,0 +1,16 @@
+.CodeMirror {
+    margin-left: 1vw;
+    border: 1px solid silver;
+}
+
+.CodeMirror-empty {
+    outline: 1px solid grey;
+}
+
+.CodeMirror-empty.CodeMirror-focused {
+    outline: none;
+}
+
+.CodeMirror pre.CodeMirror-placeholder {
+    color: grey;
+}

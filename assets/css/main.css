@@ -21,6 +21,11 @@
 	resize: none;
 }
 
+#credits {
+  margin-top: 3px;
+  text-align: center;
+}
+
 #scroll {
 	height:25vw;
 	overflow-y: scroll;

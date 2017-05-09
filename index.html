@@ -7,11 +7,16 @@
 	<link rel="stylesheet" href="assets/css/xmltree.css" />
 	<link rel="stylesheet" href="assets/css/diffview.css" />
 	<link rel="stylesheet" href="assets/css/main.css" />
+	<link rel="stylesheet" href="assets/css/codemirror.css" />
+	<link rel="stylesheet" href="assets/codemirror/lib/codemirror.css" />
 
     <!-- JS Scripts -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="assets/js/tools.js"></script>
+	<script src="assets/codemirror/lib/codemirror.js"> </script>
+	<script src="assets/codemirror/addon/display/placeholder.js"></script>
+	<script src="assets/codemirror/mode/xml/xml.js"> </script>
 
 	<!-- Custom Scripts -->
 	<script src="assets/js/xmltree.js"></script>
@@ -34,10 +39,10 @@
 					<button id='generateDiff' class="btn btn-secondary" type="button">Generate Diff</button>
 				</div>
 				<div id='xml1'>
-					<textarea id="text1" placeholder="Enter Base XML"></textarea>
+					<textarea id="text1" class="codemirror-textarea" placeholder="Base XML goes here ..."></textarea>
 				</div>
 				<div id='xml2'>
-					<textarea id="text2" placeholder="Enter Changed XML"></textarea>
+					<textarea id="text2" class="codemirror-textarea" placeholder="Changed XML goes here ..."></textarea>
 				</div>
 			</div>
 
@@ -46,6 +51,7 @@
 			    	<h1 class="text-center">XML Diff Visualizer</h1>
 			  	</div>
 				<div class="button-wrapper">
+					<button id='backToEditor' class="btn btn-secondary" type="button">Back</button>
 					<button id='generateAnotherDiff' class="btn btn-secondary" type="button">Generate Another Diff</button>
 				</div>
 				<div id="from">
@@ -55,6 +61,10 @@
 					<div id='to_tree'></div>
 				</div>
 			</div>
+		</div>
+
+		<div id="credits">
+			<a href="credits.html">Credits</a>
 		</div>
 	</div>
 

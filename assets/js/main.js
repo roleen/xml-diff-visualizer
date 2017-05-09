@@ -1,6 +1,8 @@
+var baseEditor, changedEditor;
+
 function generateDiff() {
-    var fromXML = document.getElementById('text1').value;
-    var toXML = document.getElementById('text2').value;
+    var fromXML = baseEditor.getValue();
+    var toXML = changedEditor.getValue();
 
     if (fromXML == null || fromXML == undefined || fromXML.trim() == "") {
         alert("Base XML cannot be emtpy");
@@ -41,16 +43,36 @@ function generateDiff() {
 }
 
 function generateAnotherDiff() {
-    document.getElementById('text1').value = "";
-    document.getElementById('text2').value = "";
+    baseEditor.setValue("");
+    changedEditor.setValue("");
+    backToEditor();
+}
+
+function backToEditor() {
     $('#compare').hide();
     $('#inputs').show();
+}
+
+function syntaxHighlight() {
+    var baseInput = $('.codemirror-textarea')[0];
+    var changedInput = $('.codemirror-textarea')[1];
+    var editorSettings = {
+        lineNumbers : true,
+        mode : "xml"
+    };
+    
+    baseEditor = CodeMirror.fromTextArea(baseInput, editorSettings);
+    changedEditor = CodeMirror.fromTextArea(changedInput, editorSettings);
 }
 
 function main() {
     $('#compare').hide();
     $('#generateDiff').click(generateDiff);
     $('#generateAnotherDiff').click(generateAnotherDiff);
+    $('#backToEditor').click(backToEditor);
+    syntaxHighlight();
 }
 
-main();
+$(document).ready(function() {
+    main();
+});
