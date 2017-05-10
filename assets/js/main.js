@@ -51,6 +51,8 @@ function generateAnotherDiff() {
 function backToEditor() {
     $('#compare').hide();
     $('#inputs').show();
+    baseEditor.refresh();
+    changedEditor.refresh();
 }
 
 function syntaxHighlight() {
