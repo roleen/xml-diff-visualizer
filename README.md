@@ -2,13 +2,9 @@
 
 This utility provides a diff of two xml strings organized in a tree structure. Check it out in action at http://xml-diff-visualizer.com
 
-## Installation
-
-Please copy all of the files in this repository to your project EXCEPT data.js which is a test implementation. The diff view can be seen using the test page "index.html". 
-
-## Usage
-
-See the test implementation provided in "front-end/assets/js/data.js". 
+## Example
+![alt text](https://github.com/roleen/xml-diff-visualizer/tree/master/images/xmls.png)
+![alt text](https://github.com/roleen/xml-diff-visualizer/tree/master/images/treediff.png)
 
 ## Contributing
 
