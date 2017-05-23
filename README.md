@@ -1,6 +1,6 @@
 # xml-diff-visualizer
 
-This utility provides a diff of two xml strings organized in a tree structure.
+This utility provides a diff of two xml strings organized in a tree structure. Check it out in action at http://xml-diff-visualizer.com
 
 ## Installation
 
