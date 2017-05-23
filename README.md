@@ -3,8 +3,8 @@
 This utility provides a diff of two xml strings organized in a tree structure. Check it out in action at http://xml-diff-visualizer.com
 
 ## Example
-![alt text](https://github.com/roleen/xml-diff-visualizer/tree/master/images/xmls.png)
-![alt text](https://github.com/roleen/xml-diff-visualizer/tree/master/images/treediff.png)
+![alt text](https://raw.githubusercontent.com/roleen/xml-diff-visualizer/master/images/xmls.png)
+![alt text](https://raw.githubusercontent.com/roleen/xml-diff-visualizer/master/images/treediff.png)
 
 ## Contributing
 
