@@ -11,7 +11,8 @@ Copyright © 2014, 2017, [Koppor] (http://www.github.com/koppor/xmltree).
 
 ### Author
 
-**Jon Schlinkert**
+**Roleen Nunes**
+**Nishant Desai**
 
 * [github/roleen](https://github.com/roleen)
 * [github/desainis](http://github.com/desainis)
